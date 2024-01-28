@@ -1,0 +1,389 @@
+\documentclass{article}
+\usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage{longtable}
+\pgfplotsset{compat=1.17}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\graphicspath{{./images/}}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{pdflscape}
+\usepackage{soul}
+\definecolor{lightyellow}{rgb}{1,1,0.7}
+\sethlcolor{lightyellow}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{tocloft} 
+\setlength{\parindent}{0pt}
+\usepackage[utf8]{inputenc}
+
+\title{Enhancing Customer Experience through Advanced Analytics at Ulta Beauty}
+\author{Qidian Gao, Jianing Zheng, Yunpu Zeng}
+\date{11/25/2023}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Model Selection}
+Our group selected the digital transformation success case on the SAP website \cite{ultabeauty2021}as our hypothetical case, \textbf{in which we selected the 3 most significant models that might be useful in bringing profit to the company in dealing with customers and improving the website system. }All data in this report can be seen as hypothetical. We also provided the model description, modeling process, and favorable outcomes alongside data collection.
+\subsection{PLA \& PCA in Customer Preference Analysis}
+\label{sec:enhancing_customer_experience}
+
+Understanding and catering to individual customer preferences is essential in the dynamic and highly competitive beauty retail industry. \textbf{\hl{If we were the analytics team of Ulta Beauty, a leader in this sector, we would first implement Principal Component Analysis (PCA) and Partial Least Squares (PLS) to enhance their personalized customer experiences further.}} This section outlines the processes and potential impacts of these implementations.
+
+\subsubsection{Modeling Purpose}
+\label{sec:modeling_purpose}
+The primary goal of implementing PCA and PLS at Ulta Beauty is to manage and interpret vast and complex customer data more effectively. These techniques are intended to simplify large datasets, revealing critical customer behavior patterns and preferences, thus enabling more targeted and efficient marketing strategies.
+
+\subsubsection{Model Description}
+\label{sec:model_description}
+\textit{\textbf{Principal Component Analysis (PCA)}}\par
+PCA serves as a foundational step in the analytical process. It reduces data complexity by identifying and focusing on the principal factors that contribute significantly to variations in customer behavior and preferences.
+
+\textit{\textbf{Partial Least Squares (PLS)}}\par
+PLS extends the insights gained from PCA. It is a predictive modeling technique that correlates customer characteristics with their purchasing patterns, allowing for the anticipation of customer needs and preferences.\par
+\textbf{\hl{We have a hypothetical data set of 11 categories and maybe the specific data points included, listed as follows :}}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Data Category} & \textbf{Specific Data Points} \\
+\hline
+Customer Demographic Data & Age, gender, income level, location, lifestyle indicators (occupation, family status) \\
+\hline
+Purchase History & Product categories, brands, price points, frequency/volume of purchases, seasonality of purchases \\
+\hline
+Online Interaction Data & Website browsing behavior (pages visited, time spent), app usage data, responses to online campaigns (click-through rates, engagement) \\
+\hline
+Loyalty Program Data & Enrollment in Ultimate Rewards, loyalty points, redemption patterns, participation in loyalty events/promotions \\
+\hline
+Social Media Engagement & Likes, shares, comments on products/content, direct brand interactions on social platforms \\
+\hline
+Customer Feedback and Reviews & Product reviews and ratings, feedback from surveys, customer service interaction records (calls, emails, chat logs) \\
+\hline
+In-store Interaction Data & In-store purchase behavior, participation in in-store events/promotions, customer flow, and dwell time in store sections \\
+\hline
+Product Return Data & Frequency and reasons for returns/exchanges, patterns in returns (specific categories or brands) \\
+\hline
+Market Trends and External Data & Industry trends in beauty and cosmetics, economic indicators affecting purchasing behavior \\
+\hline
+Cross-Channel Interaction Data & Data integration across channels (online, in-store, mobile, social media), behavior consistency and variation \\
+\hline
+Technographic Data & Information on devices and technologies used by customers (e.g., types of mobile devices, browsers) \\
+\hline
+\end{tabular}
+\caption{Data Collection for PCA and PLS Models at Ulta Beauty}
+\label{table:data_collection}
+\end{table}
+
+
+\subsubsection{Data Processing}
+\label{sec:data_processing}
+
+Since the dataset for Ulta Beauty comprises a mix of numerical and categorical data, the data processing will involve converting all relevant information into a format suitable for these methods. \textbf{\hl{Here's how we can process the data:}}
+
+\begin{enumerate}
+    \item \textbf{Handling Numerical Data:}
+    \begin{itemize}
+        \item Normalization/Standardization: Scale the numerical data so that each feature contributes equally to the analysis. Methods like z-score normalization or Min-Max scaling can be used.
+        \item Handling Outliers: Identify and treat outliers as they can skew PCA results. Techniques like IQR (Interquartile Range) can be effective.
+    \end{itemize}
+    
+    \item \textbf{Encoding Categorical Data:}
+    \begin{itemize}
+        \item One-Hot Encoding: Convert categorical variables into a form that could be provided to ML algorithms. One-hot encoding creates new columns indicating the presence of each possible value from the original data.
+        \item Label Encoding: For ordinal data (where the categorical values have a specific order) label encoding can be used.
+    \end{itemize}
+    
+    \item \textbf{Dealing with Missing Values:}
+    \begin{itemize}
+        \item Imputation: Fill in missing values with appropriate strategies like mean or median imputation for numerical data and mode imputation for categorical data.
+        \item Deletion: In cases where imputation might introduce bias or if the missing data is not significant, consider removing those data points.
+    \end{itemize}
+
+    \item \textbf{Feature Engineering:}
+    \begin{itemize}
+        \item Combining Features: In some cases, combining two or more features into one can be more informative and reduce the complexity of the data.
+        \item Creating New Features: Based on business understanding, new features that could be more relevant for the analysis can be created from existing data.
+    \end{itemize}
+    
+    \item \textbf{Dimensionality Reduction:}
+    \begin{itemize}
+        \item PCA: Apply PCA for initial dimensionality reduction. This step will reduce the number of features to a manageable size, retaining those that explain the most variance in the dataset.
+        \item Note: PCA is sensitive to the relative scaling of the original variables, so normalization/standardization is crucial before applying PCA.
+    \end{itemize}
+    
+    \item \textbf{Data Integration:}
+    Ensure that data from different sources (online, in-store, social media) is integrated cohesively, maintaining consistency across various data types.
+\end{enumerate}
+\textbf{\hl{Also, we have hypothetically developed the process and potential outcomes:}}
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{3.5cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+\hline
+\textbf{Data Category} & \textbf{Original Data Example} & \textbf{Data Processing Method} & \textbf{Processed Data Example} \\
+\hline
+Customer Demographic Data & Age: 34 Gender: Female & Age: Standardize Gender: One-hot encoding & Age: [Standardized Value] Gender: Female (1) Male (0) \\
+\hline
+Purchase History & Products purchased Seasonality & Normalize quantities and prices Seasonality: One-hot encoding & Product Quantities: [Normalized] Season: Winter (1) Summer (0) etc. \\
+\hline
+Online Interaction Data & Time spent Pages visited & Summarize as numerical features Normalize & Average Time: [Normalized] Total Pages: [Normalized] \\
+\hline
+Loyalty Program Data & Engagement level & Ordinal encoding & Engagement Level: Low (1) Medium (2) High (3) \\
+\hline
+Social Media Engagement & Likes Shares Comments & Convert to count metrics Normalize & Likes: [Normalized] Shares: [Normalized] \\
+\hline
+Customer Feedback and Reviews & Ratings Textual feedback & Ratings: Treat as numerical Textual: Sentiment analysis & Ratings: [Numerical] Sentiment Score: [Numerical] \\
+\hline
+In-store Interaction Data & Purchase behavior Dwell time & Summarize purchases as numerical Quantify dwell time & Total Purchases: [Numerical] Dwell Time: [Numerical] \\
+\hline
+Product Return Data & Return frequency Reasons & Frequency: Numerical Reasons: Categorize and encode & Return Frequency: [Numerical] Reason: Quality (1) Preference (0) etc. \\
+\hline
+Market Trends \& External Data & Industry trends Economic data & Quantify trends Use economic data as numerical & Trend Metric: [Numerical] Economic Index: [Numerical] \\
+\hline
+Cross-Channel Interaction Data & Behavior across channels & Develop consistency index Quantify variation numerically & Consistency Index: [Numerical] Variation Score: [Numerical] \\
+\hline
+Technographic Data & Device types used & Categorize and one-hot encode & Device Type: Mobile (1) Desktop (0) Tablet (0) etc. \\
+\hline
+\end{tabular}
+\caption{Data Processing for PCA and PLS Models at Ulta Beauty}
+\label{table:data_processing}
+\end{table}
+
+\subsubsection{Model Building}
+\label{sec:model_building}
+\textit{\textbf{Building the PCA Model}}
+\begin{enumerate}
+    \item Use processed data, ensuring all features are numerical.
+    \item Standardize the data for equal contribution in analysis.
+    \item Apply PCA to the standardized data and choose the number of principal components based on explained variance.
+    \item Transform the original dataset into the new principal component space.
+    \item Analyze the weightage of each variable in the principal components for insights.
+\end{enumerate}
+
+\textit{\textbf{Building the PLS Model}}
+\begin{enumerate}
+    \item Define customer engagement levels, product preferences, and responses to marketing campaigns as independent variables.
+    \item Use average spend per customer as the dependent variable.
+    \item Split the data into training and test sets, and train the PLS model on the training set.
+    \item Evaluate the model on the test set and adjust the number of components as necessary.
+    \item Deploy the model for predicting average customer spend.
+\end{enumerate}
+
+\subsubsection{Expected Outcomes}
+\label{sec:expected_outcomes}
+The implementation of PCA and PLS at Ulta Beauty is expected to lead to several positive outcomes, including:
+\begin{itemize}
+    \item Enhanced understanding of customer behavior and preferences.
+    \item More personalized and efficient marketing campaigns.
+    \item Improved customer segmentation and targeting.
+    \item Insights for strategic decision-making in customer service and product offerings.
+    \item Increased customer satisfaction and loyalty through personalized experiences.
+\end{itemize}
+
+\subsection{Product Recommendation Model}
+\label{sec:product_recommendation_model}
+
+\textbf{\hl{Our team of Ulta Analytics also aimed to enhance customer experiences by providing personalized product suggestions.}} Therefore this became our second model to build:
+
+\subsubsection{Modeling Purpose}
+\label{sec:modeling_purpose}
+The primary objective of this model is to leverage Ulta Beauty's extensive customer data to deliver personalized product recommendations. This approach is intended to increase customer engagement, satisfaction, and sales by offering tailored suggestions that align with individual customer preferences and purchasing history.
+
+\subsubsection{Model Description}
+\label{sec:model_description}
+The product recommendation model at Ulta Beauty is based on a \textbf{Collaborative Filtering approach}, specifically using a Matrix Factorization technique. This method is well-suited for dealing with large-scale data and is effective in uncovering latent features underlying the interactions between customers and products.
+
+\subsubsection{Collaborative Filtering: Matrix Factorization}
+Matrix Factorization, a popular algorithm in collaborative filtering, decomposes the customer-product interaction matrix into lower-dimensional matrices representing latent factors. These factors capture the underlying preferences of customers and the attributes of products.
+
+\paragraph{Algorithm Overview}
+\begin{itemize}
+    \item The model starts by creating a matrix where rows represent customers and columns represent products. Entries in this matrix are customer ratings or interaction levels with the products.
+    \item The algorithm then decomposes this matrix into two lower-dimensional matrices - one representing latent customer preferences and the other representing latent product attributes.
+    \item The model learns these latent features by minimizing the reconstruction error of the original matrix, often using techniques like stochastic gradient descent or alternating least squares.
+    \item The resulting latent features are used to predict missing entries in the matrix, which correspond to potential product recommendations for each customer.
+\end{itemize}
+
+\paragraph{Personalization and Scalability}
+\begin{itemize}
+    \item Personalization: By learning individual customer's preferences and product attributes, the model provides highly personalized recommendations.
+    \item Scalability: Matrix Factorization can handle large datasets efficiently, making it suitable for Ulta Beauty's extensive customer base and product catalog.
+\end{itemize}
+
+This collaborative filtering approach, through Matrix Factorization, forms the core of our product recommendation model, enabling Ulta Beauty to offer personalized product suggestions to each customer, enhancing their shopping experience and potentially increasing customer loyalty and sales.
+
+
+\subsubsection{Data Requirements}
+\label{sec:data_requirements}
+The model will require the following data:
+\begin{itemize}
+    \item Customer Demographic Data: Age, gender, income level, and other lifestyle indicators.
+    \item Purchase History: Detailed records of products purchased, including categories, brands, and price points.
+    \item Online Interaction Data: Website browsing behavior, app usage statistics, and responses to digital campaigns.
+    \item Loyalty Program Data: Information from Ultamate Rewards, including loyalty points and redemption patterns.
+    \item Social Media Engagement: Customer interactions with the brand on social media platforms.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Data Category} & \textbf{Specific Data Points} \\
+\hline
+Customer Demographic Data & Age, gender, income level, location, lifestyle indicators (occupation, family status) \\
+\hline
+Purchase History & Product categories, brands, price points, frequency/volume of purchases \\
+\hline
+Product Ratings & Customer ratings of products, if available \\
+\hline
+Online Interaction Data & Website browsing behavior (pages visited, time spent), app usage data \\
+\hline
+Loyalty Program Data & Enrollment in Ultamate Rewards, loyalty points, redemption patterns \\
+\hline
+\end{tabular}
+\caption{Data Collection for Collaborative Filtering Model at Ulta Beauty}
+\label{table:data_collection_cf}
+\end{table}
+
+\subsubsection{Model Building Process}
+\label{sec:model_building_process}
+The development of the recommendation model will involve the following steps:
+\begin{enumerate}
+    \item Data Collection: Gathering the required data from various sources, including in-store transactions, online interactions, and loyalty program databases.
+    \item Data Preprocessing: Cleaning the data, handling missing values, and normalizing different data formats.
+    \item Feature Engineering: Identifying and creating relevant features that could influence product recommendations.
+    \item Model Training: Training the recommendation system using algorithms such as collaborative filtering and content-based filtering.
+    \item Model Testing and Evaluation: Testing the model's accuracy and tweaking it based on performance metrics like precision and recall.
+\end{enumerate}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Data Category} & \textbf{Original Data Example} & \textbf{Data Processing Method} & \textbf{Processed Data Example} \\
+\hline
+Customer Demographic Data & Age: 34, Gender: Female & Age: Normalize, Gender: One-hot encoding & Age: [Normalized Value], Gender: Female (1), Male (0) \\
+\hline
+Purchase History & Frequency of purchases, Product categories & Convert to numerical values & Purchase Frequency: [Numerical], Product Category: [Encoded Value] \\
+\hline
+Product Ratings & Rating: 4 out of 5 & Treat as numerical & Rating: 4 \\
+\hline
+Online Interaction Data & Time spent on product pages & Normalize & Time on Page: [Normalized Value] \\
+\hline
+Loyalty Program Data & Loyalty points: 200 & Normalize & Loyalty Points: [Normalized Value] \\
+\hline
+\end{tabular}
+\caption{Data Processing for Collaborative Filtering Model at Ulta Beauty}
+\label{table:data_processing_cf}
+\end{table}
+
+\subsubsection{Expected Outcomes}
+\label{sec:expected_outcomes}
+The implementation of the product recommendation model is expected to result in:
+\begin{itemize}
+    \item Enhanced Customer Experience: Providing customers with personalized recommendations that match their preferences.
+    \item Increased Sales: Higher conversion rates and average order values due to more effective product discovery.
+    \item Improved Customer Retention: Strengthening customer loyalty through tailored experiences.
+    \item Data-Driven Insights: Gaining deeper insights into customer preferences and behavior, informing future business strategies.
+\end{itemize}
+\subsection{Revolutionizing Promotional Strategies with Regression Tree Analysis}
+\label{sec:regression_tree_analysis}
+
+\subsubsection{Modeling Purpose}
+\label{sec:modeling_purpose}
+Ulta Beauty adopts the Regression Tree model to enhance the effectiveness of its promotional campaigns. This robust decision-making tool aims to tailor marketing tactics to resonate deeply with a diverse customer base, taking into account changing consumer trends, product preferences, seasonal influences, and the effectiveness of different marketing channels.
+
+\subsubsection{Model Description}
+\label{sec:model_description}
+The Regression Tree model dissects and analyzes various factors influencing customer response to promotions. It offers a solution to the complexity faced by Ulta Beauty in tailoring promotions to increase engagement and sales. The model identifies key variables that predict promotional success, allowing for targeted marketing approaches.
+
+\subsubsection{Data Requirements}
+\label{sec:data_requirements}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Data Category} & \textbf{Specific Data Points} \\
+\hline
+Customer Profile Data & Age, gender, purchase history, preferred product categories \\
+\hline
+Previous Promotional Responses & Response rates at earlier campaigns, redemption of offers \\
+\hline
+Seasonal Trends & Season-specific purchase patterns, response to seasonal promotions \\
+\hline
+Product Interaction Data & Products browsed, added to cart and purchased \\
+\hline
+Engagement Metrics & Frequency and duration of store visits, website, and app usage data \\
+\hline
+Market and Economic Data & Current market trends, economic indicators affecting consumer spending \\
+\hline
+\end{tabular}
+\caption{Data Collection for Regression Tree Model at Ulta Beauty}
+\label{table:data_collection_regression}
+\end{table}
+
+\subsubsection{Data Processing}
+\label{sec:data_processing}
+Data goes through a rigorous processing step, including feature engineering, handling missing values, encoding categorical data, and normalization.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Data Category} & \textbf{Original Data Example} & \textbf{Data Processing Method} & \textbf{Processed Data Example} \\
+\hline
+Numerical Data & Age: 34 & Normalize/Standardize & Age: [Standardized Value] \\
+\hline
+Categorical Data & Gender: Female & One-Hot Encoding & Gender: Female (1), Male (0) \\
+\hline
+Missing Values & - & Imputation/Deletion & - \\
+\hline
+Feature Engineering & - & Combining/Creating Features & - \\
+\hline
+Dimensionality & - & Reduction/Integration & - \\
+\hline
+\end{tabular}
+\caption{Data Processing Methods for Regression Tree Model at Ulta Beauty}
+\label{table:data_processing_regression}
+\end{table}
+
+\subsubsection{Model Building Process}
+\label{sec:model_building}
+\begin{enumerate}
+    \item Input Data: Use processed and integrated data relevant to promotions.
+    \item Tree Construction: Create splits based on variables predicting promotional success.
+    \item Tree Pruning: Remove branches that contribute less to accuracy.
+    \item Model Validation: Validate using a separate test dataset.
+    \item Decision Node Analysis: Understand influencing factors at each decision node.
+    \item Predictive Application: Predict customer responses for targeted marketing.
+    \item Continuous Adaptation: Update the model with new data regularly.
+\end{enumerate}
+
+\subsubsection{Expected Outcomes}
+\label{sec:expected_outcomes}
+The implementation of the Regression Tree model is expected to lead to:
+\begin{itemize}
+    \item Enhanced understanding of customer behaviors and preferences for effective promotional strategies.
+    \item Customized promotions boosting customer engagement and sales.
+    \item Continuous learning and adaptation of the model to align with evolving customer preferences and market trends.
+    \item Optimization of promotional strategies reflecting the latest trends and historical insights.
+\end{itemize}
+
+\section{Conclusion}
+So far from now, we've successfully established the three models of digital transformation in the Ulta beauty case. The promotion strategies, the recommendation model, and the customer analysis, combined to give a new life to the sales platform. Though this report uses hypothetical data and is banned from investigating the real process used by Ulta, we still gained intelligence and knowledge.
+\bibliographystyle{plainnat}
+\bibliography{ref3.bib}
+\cite{ultabeauty2021}
+\end{document}
